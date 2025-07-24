@@ -1,4 +1,3 @@
-import venueImage from "@/assets/venue-collage.jpg";
 import { Button } from "@/components/ui/button";
 
 const WeddingDetails = () => {
@@ -45,28 +44,6 @@ const WeddingDetails = () => {
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 uppercase tracking-wide">
               Visit Website
             </Button>
-          </div>
-        </div>
-        
-        {/* Venue Images */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="md:col-span-1">
-            <div 
-              className="h-64 bg-cover bg-center rounded-lg"
-              style={{ backgroundImage: `url(${venueImage})` }}
-            />
-          </div>
-          <div className="md:col-span-1">
-            <div 
-              className="h-64 bg-cover bg-center rounded-lg"
-              style={{ backgroundImage: `url(${venueImage})` }}
-            />
-          </div>
-          <div className="md:col-span-1">
-            <div 
-              className="h-64 bg-cover bg-center rounded-lg"
-              style={{ backgroundImage: `url(${venueImage})` }}
-            />
           </div>
         </div>
       </div>

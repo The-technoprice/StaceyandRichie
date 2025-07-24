@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PaystackButton } from "react-paystack";
-import { Gift, Heart, DollarSign } from "lucide-react";
+import { Heart, DollarSign, Camera, Music, Cake, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const GiftSection = () => {
+const FundraisingSection = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -18,10 +19,45 @@ const GiftSection = () => {
   // You'll need to replace this with your actual Paystack public key
   const publicKey = "pk_test_your_paystack_public_key_here";
 
+  const categories = [
+    {
+      id: "pastry",
+      name: "Pastry Services",
+      icon: Cake,
+      description: "Help us create beautiful wedding cakes and desserts",
+      suggestedAmounts: [15000, 30000, 50000, 75000],
+      target: 200000
+    },
+    {
+      id: "photo_video",
+      name: "Photo & Video",
+      icon: Camera,
+      description: "Capture our special moments with professional photography",
+      suggestedAmounts: [20000, 40000, 60000, 100000],
+      target: 300000
+    },
+    {
+      id: "entertainment",
+      name: "MC/DJ/Band",
+      icon: Music,
+      description: "Keep the celebration alive with great music and entertainment",
+      suggestedAmounts: [10000, 25000, 40000, 60000],
+      target: 150000
+    },
+    {
+      id: "styling",
+      name: "Makeup Stylist/Decor",
+      icon: Sparkles,
+      description: "Make everything beautiful with professional styling and decor",
+      suggestedAmounts: [15000, 25000, 45000, 70000],
+      target: 180000
+    }
+  ];
+
   const handlePaystackSuccess = (reference: any) => {
     toast({
-      title: "Payment Successful!",
-      description: "Thank you for your generous gift! We truly appreciate it.",
+      title: "Donation Successful!",
+      description: `Thank you for contributing to our ${categories.find(c => c.id === selectedCategory)?.name}! We truly appreciate your support.`,
     });
     
     // Reset form
@@ -29,12 +65,13 @@ const GiftSection = () => {
     setEmail("");
     setName("");
     setMessage("");
+    setSelectedCategory("");
   };
 
   const handlePaystackClose = () => {
     toast({
       title: "Payment Cancelled",
-      description: "Your payment was not completed.",
+      description: "Your donation was not completed.",
       variant: "destructive",
     });
   };
@@ -45,11 +82,17 @@ const GiftSection = () => {
     metadata: {
       name,
       message,
+      category: selectedCategory,
       custom_fields: [
         {
-          display_name: "Sender Name",
-          variable_name: "sender_name",
+          display_name: "Donor Name",
+          variable_name: "donor_name",
           value: name,
+        },
+        {
+          display_name: "Category",
+          variable_name: "category",
+          value: categories.find(c => c.id === selectedCategory)?.name || "",
         },
         {
           display_name: "Message",
@@ -59,34 +102,59 @@ const GiftSection = () => {
       ],
     },
     publicKey,
-    text: `Send ₦${amount ? parseInt(amount).toLocaleString() : '0'} Gift`,
+    text: `Donate ₦${amount ? parseInt(amount).toLocaleString() : '0'}`,
     onSuccess: handlePaystackSuccess,
     onClose: handlePaystackClose,
   };
 
-  const quickAmounts = [5000, 10000, 25000, 50000, 100000];
+  const selectedCategoryData = categories.find(c => c.id === selectedCategory);
 
   return (
     <section className="py-20 px-4 bg-background">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <Gift className="w-16 h-16 text-rose-500 mx-auto mb-6" />
+          <Heart className="w-16 h-16 text-primary mx-auto mb-6" />
           <h2 className="text-4xl md:text-5xl font-serif text-primary mb-6">
-            Wedding Gifts
+            Help Us Make Our Dream Wedding Come True
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Your presence at our wedding is the greatest gift of all. However, if you wish 
-            to honor us with a gift, a contribution towards our future together would be 
-            deeply appreciated.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Your support means the world to us! Choose a category below to help fund our special day. 
+            Every contribution, no matter the size, brings us closer to the wedding of our dreams.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card>
+        {/* Category Selection */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            return (
+              <Card 
+                key={category.id}
+                className={`cursor-pointer transition-all hover:shadow-lg ${
+                  selectedCategory === category.id ? 'ring-2 ring-primary bg-primary/5' : ''
+                }`}
+                onClick={() => setSelectedCategory(category.id)}
+              >
+                <CardContent className="p-6 text-center">
+                  <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="font-semibold text-lg mb-2">{category.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
+                  <div className="text-xs text-primary font-medium">
+                    Target: ₦{category.target.toLocaleString()}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Donation Form */}
+        {selectedCategory && (
+          <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-2xl">
-                <Heart className="w-6 h-6 text-rose-500" />
-                Send a Gift
+                <Heart className="w-6 h-6 text-primary" />
+                Contribute to {selectedCategoryData?.name}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -112,7 +180,7 @@ const GiftSection = () => {
               </div>
 
               <div>
-                <Label htmlFor="amount">Gift Amount (₦)</Label>
+                <Label htmlFor="amount">Donation Amount (₦)</Label>
                 <Input
                   id="amount"
                   type="number"
@@ -121,7 +189,7 @@ const GiftSection = () => {
                   placeholder="Enter amount"
                 />
                 <div className="flex flex-wrap gap-2 mt-3">
-                  {quickAmounts.map((quickAmount) => (
+                  {selectedCategoryData?.suggestedAmounts.map((quickAmount) => (
                     <Button
                       key={quickAmount}
                       variant="outline"
@@ -141,7 +209,7 @@ const GiftSection = () => {
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Share your wishes for the couple..."
+                  placeholder="Share your wishes for Stacey & Richie..."
                   rows={3}
                 />
               </div>
@@ -150,10 +218,10 @@ const GiftSection = () => {
                 {amount && email && name ? (
                   <PaystackButton
                     {...componentProps}
-                    className="w-full bg-rose-600 hover:bg-rose-700 text-white py-3 px-6 rounded-md font-semibold flex items-center justify-center gap-2 transition-colors"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-md font-semibold flex items-center justify-center gap-2 transition-colors"
                   >
                     <DollarSign className="w-5 h-5" />
-                    Send ₦{parseInt(amount).toLocaleString()} Gift
+                    Donate ₦{parseInt(amount).toLocaleString()}
                   </PaystackButton>
                 ) : (
                   <Button disabled className="w-full" size="lg">
@@ -163,47 +231,10 @@ const GiftSection = () => {
               </div>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Gift Registry</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground">
-                We're building our new life together and would be grateful for contributions towards:
-              </p>
-              
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                  <span>Our dream honeymoon to Santorini</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                  <span>Setting up our new home</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                  <span>Starting our photography business</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-                  <span>Emergency fund for our future</span>
-                </li>
-              </ul>
-
-              <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Alternative Options:</strong> If you prefer, you can also 
-                  send gifts via bank transfer or bring physical gifts on our wedding day.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        )}
       </div>
     </section>
   );
 };
 
-export default GiftSection;
+export default FundraisingSection;
