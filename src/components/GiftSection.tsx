@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { PaystackButton } from "react-paystack";
 import { Heart, DollarSign, Camera, Music, Cake, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const FundraisingSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -20,13 +21,63 @@ const FundraisingSection = () => {
   // Replace this with your actual Paystack public key
   const publicKey = "pk_test_a3634bac32e553d6ad1dd3ea2e2b313ae9701b0c";
 
-  // Simulated current amounts for progress (replace with real data from your backend)
+  // Real-time donation amounts from Supabase
   const [currentAmounts, setCurrentAmounts] = useState({
-    pastry: 12000,
-    photo_video: 23000,
-    entertainment: 15000,
-    styling: 18000
+    pastry: 0,
+    photo_video: 0,
+    entertainment: 0,
+    styling: 0
   });
+
+  // Fetch and subscribe to real-time donation data
+  useEffect(() => {
+    const fetchDonationAmounts = async () => {
+      const { data: donations } = await supabase
+        .from('donations')
+        .select('category, amount')
+        .eq('status', 'completed');
+
+      if (donations) {
+        const amounts = {
+          pastry: 0,
+          photo_video: 0,
+          entertainment: 0,
+          styling: 0
+        };
+
+        donations.forEach((donation) => {
+          amounts[donation.category as keyof typeof amounts] += donation.amount;
+        });
+
+        setCurrentAmounts(amounts);
+      }
+    };
+
+    // Initial fetch
+    fetchDonationAmounts();
+
+    // Subscribe to real-time changes
+    const channel = supabase
+      .channel('donation-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'donations',
+          filter: 'status=eq.completed'
+        },
+        () => {
+          // Refetch when any donation is updated
+          fetchDonationAmounts();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   const categories = [
     {
@@ -67,11 +118,35 @@ const FundraisingSection = () => {
     }
   ];
 
-  const handlePaystackSuccess = (reference: any) => {
-    toast({
-      title: "Donation Successful!",
-      description: `Thank you for contributing to our ${categories.find(c => c.id === selectedCategory)?.name}! We truly appreciate your support.`,
-    });
+  const handlePaystackSuccess = async (reference: any) => {
+    // Save the donation to the database
+    const donationData = {
+      donor_name: name,
+      donor_email: email,
+      amount: parseInt(amount),
+      category: selectedCategory,
+      message: message || null,
+      paystack_reference: reference.reference,
+      status: 'completed'
+    };
+
+    const { error } = await supabase
+      .from('donations')
+      .insert([donationData]);
+
+    if (error) {
+      console.error('Error saving donation:', error);
+      toast({
+        title: "Payment Successful, but...",
+        description: "Your payment was successful but there was an issue recording it. Please contact support with your reference: " + reference.reference,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Donation Successful!",
+        description: `Thank you for contributing to our ${categories.find(c => c.id === selectedCategory)?.name}! We truly appreciate your support.`,
+      });
+    }
     
     // Reset form
     setAmount("");
