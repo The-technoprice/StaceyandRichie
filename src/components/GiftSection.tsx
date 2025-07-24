@@ -18,7 +18,7 @@ const FundraisingSection = () => {
   const { toast } = useToast();
 
   // Replace this with your actual Paystack public key
-  const publicKey = "pk_test_your_paystack_public_key_here";
+  const publicKey = "pk_test_a3634bac32e553d6ad1dd3ea2e2b313ae9701b0c";
 
   // Simulated current amounts for progress (replace with real data from your backend)
   const [currentAmounts, setCurrentAmounts] = useState({
