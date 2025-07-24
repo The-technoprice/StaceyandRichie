@@ -1,104 +1,73 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, MapPin, Camera, Music, Utensils } from "lucide-react";
+import venueImage from "@/assets/venue-collage.jpg";
+import { Button } from "@/components/ui/button";
 
 const WeddingDetails = () => {
   return (
-    <section className="py-20 px-4 bg-muted/20">
+    <section className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-serif text-center text-primary mb-16">
-          Wedding Details
+        <h2 className="text-4xl md:text-5xl font-serif text-center text-primary mb-8 tracking-wide">
+          Wedding Venue
         </h2>
+        <div className="w-24 h-0.5 bg-accent mx-auto mb-16"></div>
         
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <Card className="text-center">
-            <CardHeader>
-              <CardTitle className="text-2xl font-serif text-primary flex items-center justify-center gap-3">
-                <MapPin className="w-6 h-6" />
-                Ceremony
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-center gap-2">
-                <Clock className="w-5 h-5 text-rose-500" />
-                <span>3:00 PM</span>
-              </div>
-              <div>
-                <p className="font-semibold">Garden View Resort</p>
-                <p className="text-muted-foreground">123 Love Lane, Victoria Island</p>
-                <p className="text-muted-foreground">Lagos, Nigeria</p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Outdoor ceremony in the beautiful garden pavilion
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="text-center">
-            <CardHeader>
-              <CardTitle className="text-2xl font-serif text-primary flex items-center justify-center gap-3">
-                <Music className="w-6 h-6" />
-                Reception
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-center gap-2">
-                <Clock className="w-5 h-5 text-rose-500" />
-                <span>6:00 PM</span>
-              </div>
-              <div>
-                <p className="font-semibold">Garden View Resort</p>
-                <p className="text-muted-foreground">Grand Ballroom</p>
-                <p className="text-muted-foreground">Same Location</p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Dinner, dancing, and celebration until midnight
-              </p>
-            </CardContent>
-          </Card>
+        <div className="text-center mb-12">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Our stunning wedding venue is located at the heart of the countryside, just minutes of the 
+            beautiful resort of Coastal Gardens.
+          </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="text-center">
-            <CardContent className="pt-6">
-              <Utensils className="w-12 h-12 text-rose-500 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Dinner</h3>
-              <p className="text-muted-foreground text-sm">
-                Three-course plated dinner with vegetarian options available
-              </p>
-            </CardContent>
-          </Card>
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-serif text-primary mb-4 uppercase tracking-wide">Location</h3>
+            <p className="text-lg text-muted-foreground">Coastal Gardens Resort, Mombasa</p>
+          </div>
           
-          <Card className="text-center">
-            <CardContent className="pt-6">
-              <Music className="w-12 h-12 text-rose-500 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Music</h3>
-              <p className="text-muted-foreground text-sm">
-                Live band and DJ for ceremony and reception
-              </p>
-            </CardContent>
-          </Card>
+          <div className="text-center mb-8">
+            <p className="text-muted-foreground mb-6">
+              We're so pleased to invite you to spend the weekend with us in the most beautiful surroundings, 
+              so whether you decide to book just a great meal or a full weekend.
+            </p>
+            <p className="text-muted-foreground mb-6">
+              Our venue is easily accessible by car and public transport.
+            </p>
+            <p className="text-muted-foreground mb-8">
+              We also provide a shuttle service. Our guests can enjoy everything of all 
+              with an overnight stay.
+            </p>
+            <p className="text-muted-foreground mb-8">
+              We look forward to welcoming you this summer!
+            </p>
+          </div>
           
-          <Card className="text-center">
-            <CardContent className="pt-6">
-              <Camera className="w-12 h-12 text-rose-500 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Photography</h3>
-              <p className="text-muted-foreground text-sm">
-                Professional photography and videography included
-              </p>
-            </CardContent>
-          </Card>
+          <div className="text-center mb-12">
+            <p className="text-lg text-primary font-medium mb-4">Wedding starts at 4 pm</p>
+            <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 uppercase tracking-wide">
+              Visit Website
+            </Button>
+          </div>
         </div>
         
-        <div className="mt-12 text-center">
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="pt-6">
-              <h3 className="text-2xl font-serif text-primary mb-4">Dress Code</h3>
-              <p className="text-muted-foreground">
-                Semi-formal attire requested. Ladies, please avoid white. 
-                Gentlemen, jacket preferred but not required.
-              </p>
-            </CardContent>
-          </Card>
+        {/* Venue Images */}
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="md:col-span-1">
+            <div 
+              className="h-64 bg-cover bg-center rounded-lg"
+              style={{ backgroundImage: `url(${venueImage})` }}
+            />
+          </div>
+          <div className="md:col-span-1">
+            <div 
+              className="h-64 bg-cover bg-center rounded-lg"
+              style={{ backgroundImage: `url(${venueImage})` }}
+            />
+          </div>
+          <div className="md:col-span-1">
+            <div 
+              className="h-64 bg-cover bg-center rounded-lg"
+              style={{ backgroundImage: `url(${venueImage})` }}
+            />
+          </div>
         </div>
       </div>
     </section>

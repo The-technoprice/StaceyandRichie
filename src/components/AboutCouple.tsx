@@ -1,60 +1,92 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const AboutCouple = () => {
   return (
-    <section className="py-20 px-4 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-serif text-center text-primary mb-16">
-          Our Story
-        </h2>
-        
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <Card className="border-none shadow-lg">
-            <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <div className="w-32 h-32 bg-gradient-to-br from-rose-200 to-pink-300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-4xl font-serif text-primary">S</span>
-                </div>
-                <h3 className="text-2xl font-serif text-primary">Sarah</h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                A passionate photographer who loves capturing life's beautiful moments. 
-                When she's not behind the camera, you'll find her exploring new cafes 
-                or planning the next adventure.
-              </p>
-            </CardContent>
-          </Card>
+    <>
+      {/* Our Wedding Section */}
+      <section className="py-20 px-4 bg-background text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-serif text-primary mb-8 tracking-wide">
+            Our Wedding
+          </h2>
+          <div className="w-24 h-0.5 bg-accent mx-auto mb-12"></div>
+          <div className="text-2xl md:text-3xl font-light text-primary mb-4 tracking-wider uppercase">
+            Save The Date
+          </div>
+          <p className="text-lg text-muted-foreground mb-16">
+            Friday 15th August 2025
+          </p>
           
-          <Card className="border-none shadow-lg">
-            <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-200 to-indigo-300 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-4xl font-serif text-primary">J</span>
-                </div>
-                <h3 className="text-2xl font-serif text-primary">John</h3>
+          {/* Date details with icons */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-serif text-primary">15</span>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
-                A software engineer with a love for cooking and outdoor adventures. 
-                He believes in solving problems with code and creating memorable 
-                experiences through food and travel.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-        
-        <div className="mt-16 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-3xl font-serif text-primary mb-6">How We Met</h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Our love story began in 2019 at a local coffee shop where Sarah was photographing 
-              the morning light and John was coding his latest project. A spilled latte led to 
-              a conversation, which led to a first date, and now here we are, ready to say "I do" 
-              surrounded by our favorite people.
-            </p>
+              <p className="text-sm uppercase tracking-wide text-muted-foreground">Day</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-serif text-primary">08</span>
+              </div>
+              <p className="text-sm uppercase tracking-wide text-muted-foreground">Month</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-serif text-primary">25</span>
+              </div>
+              <p className="text-sm uppercase tracking-wide text-muted-foreground">Year</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-serif text-primary">♥</span>
+              </div>
+              <p className="text-sm uppercase tracking-wide text-muted-foreground">Love</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Join Us Section */}
+      <section className="py-20 px-4 bg-secondary">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="text-left">
+              <h2 className="text-5xl md:text-6xl font-serif text-primary mb-8">
+                Join Us
+              </h2>
+              <div className="w-16 h-0.5 bg-accent mb-8"></div>
+              <p className="text-lg text-primary mb-4 uppercase tracking-wide font-medium">
+                You Are Invited
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Together with our families, we request the pleasure of your company as we exchange vows 
+                and celebrate the beginning of our new journey together.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Join us in celebrating this joyful union as we commit to love, honor, and cherish 
+                each other for the rest of our lives.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                The ceremony will take place at Coastal Gardens, followed by a reception with dinner, 
+                dancing, and celebration into the evening.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                We look forward to celebrating this special moment with you.
+              </p>
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 text-lg uppercase tracking-wide">
+                RSVP
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="w-full h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center">
+                <span className="text-6xl text-primary">♥</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
