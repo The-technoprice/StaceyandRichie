@@ -8,7 +8,7 @@ const WeddingHero = () => {
           </h1>
           <div className="w-32 h-0.5 bg-accent mx-auto mb-8"></div>
           <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide uppercase">
-            Wedding Fundraiser
+            Our Wedding is Near
           </p>
         </div>
       </div>

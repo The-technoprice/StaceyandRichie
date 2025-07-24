@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Progress } from "@/components/ui/progress";
 import { PaystackButton } from "react-paystack";
 import { Heart, DollarSign, Camera, Music, Cake, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -19,6 +20,14 @@ const FundraisingSection = () => {
   // Replace this with your actual Paystack public key
   const publicKey = "pk_test_your_paystack_public_key_here";
 
+  // Simulated current amounts for progress (replace with real data from your backend)
+  const [currentAmounts, setCurrentAmounts] = useState({
+    pastry: 12000,
+    photo_video: 23000,
+    entertainment: 15000,
+    styling: 18000
+  });
+
   const categories = [
     {
       id: "pastry",
@@ -26,7 +35,8 @@ const FundraisingSection = () => {
       icon: Cake,
       description: "Help us create beautiful wedding cakes and desserts",
       suggestedAmounts: [2000, 5000, 10000, 15000],
-      target: 30000
+      target: 40000,
+      current: currentAmounts.pastry
     },
     {
       id: "photo_video",
@@ -34,7 +44,8 @@ const FundraisingSection = () => {
       icon: Camera,
       description: "Capture our special moments with professional photography",
       suggestedAmounts: [3000, 8000, 15000, 25000],
-      target: 50000
+      target: 75000,
+      current: currentAmounts.photo_video
     },
     {
       id: "entertainment",
@@ -42,7 +53,8 @@ const FundraisingSection = () => {
       icon: Music,
       description: "Keep the celebration alive with great music and entertainment",
       suggestedAmounts: [1500, 4000, 8000, 12000],
-      target: 25000
+      target: 50000,
+      current: currentAmounts.entertainment
     },
     {
       id: "styling",
@@ -50,7 +62,8 @@ const FundraisingSection = () => {
       icon: Sparkles,
       description: "Make everything beautiful with professional styling and decor",
       suggestedAmounts: [2500, 5000, 10000, 18000],
-      target: 35000
+      target: 65000,
+      current: currentAmounts.styling
     }
   ];
 
@@ -140,9 +153,20 @@ const FundraisingSection = () => {
                   <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold text-lg mb-2">{category.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
-                   <div className="text-xs text-primary font-medium">
-                     Target: KSh {category.target.toLocaleString()}
-                   </div>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex justify-between text-xs">
+                      <span>KSh {category.current.toLocaleString()}</span>
+                      <span>KSh {category.target.toLocaleString()}</span>
+                    </div>
+                    <Progress 
+                      value={(category.current / category.target) * 100} 
+                      className="h-2"
+                    />
+                    <div className="text-xs text-primary font-medium">
+                      {Math.round((category.current / category.target) * 100)}% funded
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             );

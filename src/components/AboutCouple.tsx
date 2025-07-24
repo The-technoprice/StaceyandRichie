@@ -74,9 +74,6 @@ const AboutCouple = () => {
               <p className="text-muted-foreground leading-relaxed mb-8">
                 We look forward to celebrating this special moment with you.
               </p>
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 text-lg uppercase tracking-wide">
-                RSVP
-              </Button>
             </div>
             <div className="relative">
               <div className="w-full h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center">
