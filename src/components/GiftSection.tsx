@@ -16,7 +16,7 @@ const FundraisingSection = () => {
   const [message, setMessage] = useState("");
   const { toast } = useToast();
 
-  // You'll need to replace this with your actual Paystack public key
+  // Replace this with your actual Paystack public key
   const publicKey = "pk_test_your_paystack_public_key_here";
 
   const categories = [
@@ -25,32 +25,32 @@ const FundraisingSection = () => {
       name: "Pastry Services",
       icon: Cake,
       description: "Help us create beautiful wedding cakes and desserts",
-      suggestedAmounts: [15000, 30000, 50000, 75000],
-      target: 200000
+      suggestedAmounts: [2000, 5000, 10000, 15000],
+      target: 30000
     },
     {
       id: "photo_video",
       name: "Photo & Video",
       icon: Camera,
       description: "Capture our special moments with professional photography",
-      suggestedAmounts: [20000, 40000, 60000, 100000],
-      target: 300000
+      suggestedAmounts: [3000, 8000, 15000, 25000],
+      target: 50000
     },
     {
       id: "entertainment",
       name: "MC/DJ/Band",
       icon: Music,
       description: "Keep the celebration alive with great music and entertainment",
-      suggestedAmounts: [10000, 25000, 40000, 60000],
-      target: 150000
+      suggestedAmounts: [1500, 4000, 8000, 12000],
+      target: 25000
     },
     {
       id: "styling",
       name: "Makeup Stylist/Decor",
       icon: Sparkles,
       description: "Make everything beautiful with professional styling and decor",
-      suggestedAmounts: [15000, 25000, 45000, 70000],
-      target: 180000
+      suggestedAmounts: [2500, 5000, 10000, 18000],
+      target: 35000
     }
   ];
 
@@ -78,7 +78,8 @@ const FundraisingSection = () => {
 
   const componentProps = {
     email,
-    amount: parseInt(amount) * 100, // Paystack expects amount in kobo
+    amount: parseInt(amount) * 100, // Paystack expects amount in cents
+    currency: "KES", // Kenyan Shillings
     metadata: {
       name,
       message,
@@ -102,7 +103,7 @@ const FundraisingSection = () => {
       ],
     },
     publicKey,
-    text: `Donate ₦${amount ? parseInt(amount).toLocaleString() : '0'}`,
+    text: `Donate KSh ${amount ? parseInt(amount).toLocaleString() : '0'}`,
     onSuccess: handlePaystackSuccess,
     onClose: handlePaystackClose,
   };
@@ -139,9 +140,9 @@ const FundraisingSection = () => {
                   <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold text-lg mb-2">{category.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
-                  <div className="text-xs text-primary font-medium">
-                    Target: ₦{category.target.toLocaleString()}
-                  </div>
+                   <div className="text-xs text-primary font-medium">
+                     Target: KSh {category.target.toLocaleString()}
+                   </div>
                 </CardContent>
               </Card>
             );
@@ -179,29 +180,29 @@ const FundraisingSection = () => {
                 />
               </div>
 
-              <div>
-                <Label htmlFor="amount">Donation Amount (₦)</Label>
-                <Input
-                  id="amount"
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="Enter amount"
-                />
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {selectedCategoryData?.suggestedAmounts.map((quickAmount) => (
-                    <Button
-                      key={quickAmount}
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setAmount(quickAmount.toString())}
-                      className="text-xs"
-                    >
-                      ₦{quickAmount.toLocaleString()}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+               <div>
+                 <Label htmlFor="amount">Donation Amount (KSh)</Label>
+                 <Input
+                   id="amount"
+                   type="number"
+                   value={amount}
+                   onChange={(e) => setAmount(e.target.value)}
+                   placeholder="Enter amount"
+                 />
+                 <div className="flex flex-wrap gap-2 mt-3">
+                   {selectedCategoryData?.suggestedAmounts.map((quickAmount) => (
+                     <Button
+                       key={quickAmount}
+                       variant="outline"
+                       size="sm"
+                       onClick={() => setAmount(quickAmount.toString())}
+                       className="text-xs"
+                     >
+                       KSh {quickAmount.toLocaleString()}
+                     </Button>
+                   ))}
+                 </div>
+               </div>
 
               <div>
                 <Label htmlFor="message">Message (Optional)</Label>
@@ -221,7 +222,7 @@ const FundraisingSection = () => {
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-md font-semibold flex items-center justify-center gap-2 transition-colors"
                   >
                     <DollarSign className="w-5 h-5" />
-                    Donate ₦{parseInt(amount).toLocaleString()}
+                    Donate KSh {parseInt(amount).toLocaleString()}
                   </PaystackButton>
                 ) : (
                   <Button disabled className="w-full" size="lg">
