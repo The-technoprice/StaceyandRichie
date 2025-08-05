@@ -15,7 +15,7 @@ const AboutCouple = () => {
             Save The Date
           </div>
           <p className="text-lg text-muted-foreground mb-16">
-            Friday 15th August 2025
+            Saturday 15th November 2025
           </p>
           
           {/* Date details with icons */}
@@ -69,8 +69,8 @@ const AboutCouple = () => {
                 each other for the rest of our lives.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                The ceremony will take place at Coastal Gardens, followed by a reception with dinner, 
-                dancing, and celebration into the evening.
+                The ceremony will take place at Gospel Outreach Church Chaka, Nyeri County, followed by a reception, 
+                dancing, and celebration at the same place into the evening.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-8">
                 We look forward to celebrating this special moment with you.
