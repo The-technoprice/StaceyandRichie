@@ -3,6 +3,8 @@ import AboutCouple from "@/components/AboutCouple";
 import WeddingDetails from "@/components/WeddingDetails";
 import CoupleSection from "@/components/CoupleSection";
 import FundraisingSection from "@/components/GiftSection";
+import SupportOffersSection from "@/components/SupportOffersSection";
+import GuestDataSection from "@/components/GuestDataSection";
 
 const Index = () => {
   return (
@@ -12,6 +14,8 @@ const Index = () => {
       <WeddingDetails />
       <CoupleSection />
       <FundraisingSection />
+      <SupportOffersSection />
+      <GuestDataSection />
     </div>
   );
 };

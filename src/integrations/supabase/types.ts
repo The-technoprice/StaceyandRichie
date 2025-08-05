@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instanciate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.12 (cd3cf9e)"
+    PostgrestVersion: "13.0.4"
   }
   public: {
     Tables: {
@@ -52,6 +52,90 @@ export type Database = {
           message?: string | null
           paystack_reference?: string | null
           status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      guest_information: {
+        Row: {
+          accessibility_needs: string | null
+          accommodation_needed: boolean | null
+          created_at: string
+          dietary_restrictions: string | null
+          email: string
+          full_name: string
+          id: string
+          phone: string | null
+          plus_one_dietary: string | null
+          plus_one_name: string | null
+          special_requests: string | null
+          transport_needed: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          accessibility_needs?: string | null
+          accommodation_needed?: boolean | null
+          created_at?: string
+          dietary_restrictions?: string | null
+          email: string
+          full_name: string
+          id?: string
+          phone?: string | null
+          plus_one_dietary?: string | null
+          plus_one_name?: string | null
+          special_requests?: string | null
+          transport_needed?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          accessibility_needs?: string | null
+          accommodation_needed?: boolean | null
+          created_at?: string
+          dietary_restrictions?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          plus_one_dietary?: string | null
+          plus_one_name?: string | null
+          special_requests?: string | null
+          transport_needed?: boolean | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      support_offers: {
+        Row: {
+          availability: string | null
+          contact_preference: string | null
+          created_at: string
+          description: string
+          guest_email: string
+          guest_name: string
+          id: string
+          support_type: string
+          updated_at: string
+        }
+        Insert: {
+          availability?: string | null
+          contact_preference?: string | null
+          created_at?: string
+          description: string
+          guest_email: string
+          guest_name: string
+          id?: string
+          support_type: string
+          updated_at?: string
+        }
+        Update: {
+          availability?: string | null
+          contact_preference?: string | null
+          created_at?: string
+          description?: string
+          guest_email?: string
+          guest_name?: string
+          id?: string
+          support_type?: string
           updated_at?: string
         }
         Relationships: []
