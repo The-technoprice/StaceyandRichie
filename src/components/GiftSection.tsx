@@ -109,7 +109,7 @@ const FundraisingSection = () => {
     },
     {
       id: "styling",
-      name: "Makeup Stylist/Decor",
+      name: "Decor/Tents/Event set up",
       icon: Sparkles,
       description: "Make everything beautiful with professional styling and decor",
       suggestedAmounts: [2500, 5000, 10000, 18000],
