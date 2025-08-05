@@ -79,8 +79,8 @@ const AboutCouple = () => {
             <div className="relative">
               <div className="w-full h-96 rounded-lg overflow-hidden">
                 <img 
-                  src={joinUsImage} 
-                  alt="Romantic couple silhouette" 
+                  src="/lovable-uploads/8f6cebf4-a6c9-4e8c-bf0e-6b66da25ed41.png" 
+                  alt="Stacey and Richie together" 
                   className="w-full h-full object-cover"
                 />
               </div>
