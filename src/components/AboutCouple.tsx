@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import joinUsImage from "@/assets/join-us-couple.jpg";
 
 const AboutCouple = () => {
   return (
@@ -76,8 +77,12 @@ const AboutCouple = () => {
               </p>
             </div>
             <div className="relative">
-              <div className="w-full h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg flex items-center justify-center">
-                <span className="text-6xl text-primary">♥</span>
+              <div className="w-full h-96 rounded-lg overflow-hidden">
+                <img 
+                  src={joinUsImage} 
+                  alt="Romantic couple silhouette" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
