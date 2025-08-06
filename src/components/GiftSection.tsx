@@ -19,7 +19,8 @@ const FundraisingSection = () => {
   const { toast } = useToast();
 
   // Replace this with your actual Paystack public key
-  const publicKey = "pk_test_a3634bac32e553d6ad1dd3ea2e2b313ae9701b0c";
+  // const publicKey = "pk_test_a3634bac32e553d6ad1dd3ea2e2b313ae9701b0c";
+  const publicKey = "pk_live_26d843a279fefde54d2771507bb444691f2e5d26";
 
   // Real-time donation amounts from Supabase
   const [currentAmounts, setCurrentAmounts] = useState({
