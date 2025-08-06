@@ -25,6 +25,7 @@ const SupportOffersSection = () => {
   const [formData, setFormData] = useState({
     guest_name: "",
     guest_email: "",
+    phone: "",
     description: "",
     availability: "",
     contact_preference: "email"
@@ -65,6 +66,7 @@ const SupportOffersSection = () => {
       setFormData({
         guest_name: "",
         guest_email: "",
+        phone: "",
         description: "",
         availability: "",
         contact_preference: "email"
@@ -154,6 +156,17 @@ const SupportOffersSection = () => {
                       required
                     />
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="Your phone number"
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                  />
                 </div>
 
                 <div className="space-y-2">

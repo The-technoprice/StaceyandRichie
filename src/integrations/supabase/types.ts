@@ -113,6 +113,7 @@ export type Database = {
           guest_email: string
           guest_name: string
           id: string
+          phone: string | null
           support_type: string
           updated_at: string
         }
@@ -124,6 +125,7 @@ export type Database = {
           guest_email: string
           guest_name: string
           id?: string
+          phone?: string | null
           support_type: string
           updated_at?: string
         }
@@ -135,6 +137,7 @@ export type Database = {
           guest_email?: string
           guest_name?: string
           id?: string
+          phone?: string | null
           support_type?: string
           updated_at?: string
         }
