@@ -11,36 +11,36 @@ const WeddingDetails = () => {
         
         <div className="text-center mb-12">
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Our stunning wedding venue is located at the heart of the countryside, just minutes of the 
-            beautiful resort of Coastal Gardens.
+            Our wedding ceremony will take place at Gospel Outreach Church Chaka, located in the beautiful 
+            Nyeri County.
           </p>
         </div>
         
         <div className="mb-16">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-serif text-primary mb-4 uppercase tracking-wide">Location</h3>
-            <p className="text-lg text-muted-foreground">Coastal Gardens Resort, Mombasa</p>
+            <p className="text-lg text-muted-foreground">Gospel Outreach Church Chaka, Nyeri County</p>
           </div>
           
           <div className="text-center mb-8">
             <p className="text-muted-foreground mb-6">
-              We're so pleased to invite you to spend the weekend with us in the most beautiful surroundings, 
-              so whether you decide to book just a great meal or a full weekend.
+              We're so pleased to invite you to join us for our special day at this beautiful church 
+              in the heart of Nyeri County.
             </p>
             <p className="text-muted-foreground mb-6">
-              Our venue is easily accessible by car and public transport.
+              Our venue is easily accessible by car and public transport from Nyeri town.
             </p>
             <p className="text-muted-foreground mb-8">
-              We also provide a shuttle service. Our guests can enjoy everything of all 
-              with an overnight stay.
+              The ceremony and reception will take place at the same venue, making it convenient 
+              for all our guests to enjoy the full celebration.
             </p>
             <p className="text-muted-foreground mb-8">
-              We look forward to welcoming you this summer!
+              We look forward to welcoming you on Saturday, November 15th, 2025!
             </p>
           </div>
           
           <div className="text-center mb-12">
-            <p className="text-lg text-primary font-medium mb-4">Wedding starts at 4 pm</p>
+            <p className="text-lg text-primary font-medium mb-4">Wedding starts at 10:00 AM</p>
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 uppercase tracking-wide">
               Visit Website
             </Button>

@@ -28,7 +28,7 @@ const AboutCouple = () => {
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-serif text-primary">08</span>
+                <span className="text-2xl font-serif text-primary">11</span>
               </div>
               <p className="text-sm uppercase tracking-wide text-muted-foreground">Month</p>
             </div>
