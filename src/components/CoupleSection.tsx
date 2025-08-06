@@ -7,10 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Upload, Heart } from "lucide-react";
 
 const CoupleSection = () => {
-  const [brideImage, setBrideImage] = useState("");
-  const [groomImage, setGroomImage] = useState("");
-  const [brideNotes, setBrideNotes] = useState("Stacey is a passionate teacher who loves helping children learn and grow. In her free time, she enjoys reading, painting, and planning beautiful events.");
-  const [groomNotes, setGroomNotes] = useState("Richie is a dedicated software engineer with a love for technology and innovation. He enjoys cooking, playing guitar, and building amazing digital experiences.");
+  const [brideImage, setBrideImage] = useState("/lovable-uploads/844889cc-938c-48df-9c4c-c9759d8df09d.png");
+  const [groomImage, setGroomImage] = useState("/lovable-uploads/556a9819-b0ba-4433-8264-339ce85c07f6.png");
+  const [brideNotes, setBrideNotes] = useState("Stacey is a dedicated psychologist and behavior analysis coach, passionate about making a difference in the lives of children with special needs. With a calm, organized demeanor and a thoughtful personality, she brings a unique blend of structure, empathy, and deep attentiveness creating safe, nurturing environments where growth and healing can truly begin. She has had the privilege of working alongside one of Kenya's top Board Certified Behavior Analysts (BCBAs), gaining valuable experience in personalized interventions and individualized care.");
+  const [groomNotes, setGroomNotes] = useState("Richard is an accountant by profession, but creativity is where his heart truly comes alive. He's the founder of a growing design, branding, and printing business in Nairobi, where he turns ideas into bold, beautiful visuals. Whether it's crafting logos, designing prints, or building brand identities, Richard brings passion and precision to every project. Outside the creative world, he's a music minister through musical instruments and song. With a balance of structure, artistry, and faith, Richard wears many hats—and wears them well.");
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'bride' | 'groom') => {
     const file = event.target.files?.[0];
@@ -34,7 +34,7 @@ const CoupleSection = () => {
         <div className="text-center mb-16">
           <Heart className="w-16 h-16 text-primary mx-auto mb-6" />
           <h2 className="text-4xl md:text-5xl font-serif text-primary mb-6">
-            Meet Stacey & Richie
+            Meet Stacey & Richard
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Get to know the beautiful couple whose special day you're helping to make perfect
@@ -88,7 +88,7 @@ const CoupleSection = () => {
                 {groomImage ? (
                   <img 
                     src={groomImage} 
-                    alt="Richie" 
+                    alt="Richard" 
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -105,9 +105,9 @@ const CoupleSection = () => {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-serif text-primary mb-4 text-center">Richie</h3>
+                <h3 className="text-2xl font-serif text-primary mb-4 text-center">Richard</h3>
                 <Label htmlFor="groom-notes" className="text-sm font-medium mb-2 block">
-                  About Richie
+                  About Richard
                 </Label>
                 <Textarea
                   id="groom-notes"
