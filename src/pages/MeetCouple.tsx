@@ -1,29 +1,11 @@
 import CoupleSection from "@/components/CoupleSection";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const MeetCouple = () => {
   return (
     <div className="min-h-screen">
-      {/* Navigation Header */}
-      <nav className="py-6 px-4 bg-white/50 backdrop-blur-sm border-b">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link to="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Wedding Details
-            </Button>
-          </Link>
-          <Link to="/support">
-            <Button size="sm">
-              <Heart className="w-4 h-4 mr-2" />
-              Support Us
-            </Button>
-          </Link>
-        </div>
-      </nav>
-
       <CoupleSection />
 
       {/* Call to Action */}

@@ -4,8 +4,7 @@ import RSVPSection from "@/components/RSVPSection";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Gift, Users, Heart, HandHeart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Gift, Users, Heart, HandHeart } from "lucide-react";
 import SupportOfferForm from "@/components/SupportOfferForm";
 
 const Support = () => {
@@ -15,23 +14,6 @@ const Support = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/20">
-      {/* Navigation Header */}
-      <nav className="py-6 px-4 bg-white/50 backdrop-blur-sm border-b">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link to="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Wedding Details
-            </Button>
-          </Link>
-          <Link to="/meet-couple">
-            <Button variant="outline" size="sm">
-              <Users className="w-4 h-4 mr-2" />
-              Meet the Couple
-            </Button>
-          </Link>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <section className="py-20 px-4">
