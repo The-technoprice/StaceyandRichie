@@ -1,32 +1,12 @@
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Upload, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const CoupleSection = () => {
-  const [brideImage, setBrideImage] = useState("/lovable-uploads/844889cc-938c-48df-9c4c-c9759d8df09d.png");
-  const [groomImage, setGroomImage] = useState("/lovable-uploads/556a9819-b0ba-4433-8264-339ce85c07f6.png");
-  const [brideNotes, setBrideNotes] = useState("Stacey is a dedicated psychologist and behavior analysis coach, passionate about making a difference in the lives of children with special needs. With a calm, organized demeanor and a thoughtful personality, she brings a unique blend of structure, empathy, and deep attentiveness creating safe, nurturing environments where growth and healing can truly begin. She has had the privilege of working alongside one of Kenya's top Board Certified Behavior Analysts (BCBAs), gaining valuable experience in personalized interventions and individualized care.");
-  const [groomNotes, setGroomNotes] = useState("Richard is an accountant by profession, but creativity is where his heart truly comes alive. He's the founder of a growing design, branding, and printing business in Nairobi, where he turns ideas into bold, beautiful visuals. Whether it's crafting logos, designing prints, or building brand identities, Richard brings passion and precision to every project. Outside the creative world, he's a music minister through musical instruments and song. With a balance of structure, artistry, and faith, Richard wears many hats—and wears them well.");
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'bride' | 'groom') => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        if (type === 'bride') {
-          setBrideImage(result);
-        } else {
-          setGroomImage(result);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // Static data for the couple
+  const brideImage = "/lovable-uploads/844889cc-938c-48df-9c4c-c9759d8df09d.png";
+  const groomImage = "/lovable-uploads/556a9819-b0ba-4433-8264-339ce85c07f6.png";
+  const brideDescription = "Stacey is a dedicated psychologist and behavior analysis coach, passionate about making a difference in the lives of children with special needs. With a calm, organized demeanor and a thoughtful personality, she brings a unique blend of structure, empathy, and deep attentiveness creating safe, nurturing environments where growth and healing can truly begin. She has had the privilege of working alongside one of Kenya's top Board Certified Behavior Analysts (BCBAs), gaining valuable experience in personalized interventions and individualized care.";
+  const groomDescription = "Richard is an accountant by profession, but creativity is where his heart truly comes alive. He's the founder of a growing design, branding, and printing business in Nairobi, where he turns ideas into bold, beautiful visuals. Whether it's crafting logos, designing prints, or building brand identities, Richard brings passion and precision to every project. Outside the creative world, he's a music minister through musical instruments and song. With a balance of structure, artistry, and faith, Richard wears many hats—and wears them well.";
 
   return (
     <section className="py-20 px-4 bg-secondary/20">
@@ -43,82 +23,56 @@ const CoupleSection = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Bride Card */}
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden shadow-lg">
             <CardContent className="p-0">
-              <div className="aspect-square bg-secondary/50 flex items-center justify-center relative overflow-hidden">
-                {brideImage ? (
-                  <img 
-                    src={brideImage} 
-                    alt="Stacey" 
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="text-center">
-                    <Upload className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">Upload Bride Photo</p>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleImageUpload(e, 'bride')}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
+              <div className="aspect-square bg-secondary/50 overflow-hidden">
+                <img 
+                  src={brideImage} 
+                  alt="Stacey - Beautiful bride-to-be" 
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="p-6">
                 <h3 className="text-2xl font-serif text-primary mb-4 text-center">Stacey</h3>
-                <Label htmlFor="bride-notes" className="text-sm font-medium mb-2 block">
-                  About Stacey
-                </Label>
-                <Textarea
-                  id="bride-notes"
-                  value={brideNotes}
-                  onChange={(e) => setBrideNotes(e.target.value)}
-                  rows={4}
-                  className="resize-none"
-                />
+                <div className="prose prose-sm max-w-none">
+                  <p className="text-muted-foreground leading-relaxed text-justify">
+                    {brideDescription}
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
 
           {/* Groom Card */}
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden shadow-lg">
             <CardContent className="p-0">
-              <div className="aspect-square bg-secondary/50 flex items-center justify-center relative overflow-hidden">
-                {groomImage ? (
-                  <img 
-                    src={groomImage} 
-                    alt="Richard" 
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="text-center">
-                    <Upload className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">Upload Groom Photo</p>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleImageUpload(e, 'groom')}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
+              <div className="aspect-square bg-secondary/50 overflow-hidden">
+                <img 
+                  src={groomImage} 
+                  alt="Richard - Handsome groom-to-be" 
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="p-6">
                 <h3 className="text-2xl font-serif text-primary mb-4 text-center">Richard</h3>
-                <Label htmlFor="groom-notes" className="text-sm font-medium mb-2 block">
-                  About Richard
-                </Label>
-                <Textarea
-                  id="groom-notes"
-                  value={groomNotes}
-                  onChange={(e) => setGroomNotes(e.target.value)}
-                  rows={4}
-                  className="resize-none"
-                />
+                <div className="prose prose-sm max-w-none">
+                  <p className="text-muted-foreground leading-relaxed text-justify">
+                    {groomDescription}
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Love Story Section */}
+        <div className="mt-16 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-3xl font-serif text-primary mb-6">Our Love Story</h3>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Together, Stacey and Richard complement each other beautifully—her structured, empathetic approach to helping others paired with his creative vision and musical heart. Their shared faith and commitment to making a positive impact in their community has brought them together in love, and now they're ready to embark on the greatest adventure of all: marriage.
+            </p>
+          </div>
         </div>
       </div>
     </section>
