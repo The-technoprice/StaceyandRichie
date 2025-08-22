@@ -1,15 +1,13 @@
 import { useState } from "react";
 import GiftSection from "@/components/GiftSection";
-import RSVPSection from "@/components/RSVPSection";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Gift, Users, Heart, HandHeart } from "lucide-react";
+import { Gift, Heart, HandHeart } from "lucide-react";
 import SupportOfferForm from "@/components/SupportOfferForm";
 
 const Support = () => {
   const [isGiftDialogOpen, setIsGiftDialogOpen] = useState(false);
-  const [isRSVPDialogOpen, setIsRSVPDialogOpen] = useState(false);
   const [isSupportDialogOpen, setIsSupportDialogOpen] = useState(false);
 
   return (
@@ -23,8 +21,8 @@ const Support = () => {
             Support Our Wedding
           </h1>
           <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Your love, presence, and support are the greatest gifts we could ask for. 
-            Choose how you'd like to be part of our special day.
+            Your love and support mean the world to us. Choose how you'd like to 
+            contribute to making our special day unforgettable.
           </p>
         </div>
       </section>
@@ -32,7 +30,7 @@ const Support = () => {
       {/* Support Options */}
       <section className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {/* Gift Contribution */}
             <Dialog open={isGiftDialogOpen} onOpenChange={setIsGiftDialogOpen}>
               <DialogTrigger asChild>
@@ -56,32 +54,6 @@ const Support = () => {
                   <DialogTitle className="text-2xl font-serif text-center">Gift Contribution</DialogTitle>
                 </DialogHeader>
                 <GiftSection />
-              </DialogContent>
-            </Dialog>
-
-            {/* RSVP */}
-            <Dialog open={isRSVPDialogOpen} onOpenChange={setIsRSVPDialogOpen}>
-              <DialogTrigger asChild>
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow bg-white/80 backdrop-blur-sm">
-                  <CardHeader className="text-center">
-                    <Users className="w-16 h-16 text-primary mx-auto mb-4" />
-                    <CardTitle className="text-2xl font-serif">RSVP</CardTitle>
-                    <CardDescription className="text-base">
-                      Let us know if you'll be joining us on our special day
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button className="w-full" size="lg" variant="outline">
-                      RSVP Now
-                    </Button>
-                  </CardContent>
-                </Card>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl font-serif text-center">RSVP for Our Wedding</DialogTitle>
-                </DialogHeader>
-                <RSVPSection />
               </DialogContent>
             </Dialog>
 
