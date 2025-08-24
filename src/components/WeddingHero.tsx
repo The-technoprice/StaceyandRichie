@@ -1,4 +1,4 @@
-import heroImage from "@/assets/join-us-couple.jpg";
+const heroImage = "/lovable-uploads/b9290f0e-731e-4ea9-90a7-7a30212cb439.png";
 
 const WeddingHero = () => {
   return (
@@ -13,8 +13,14 @@ const WeddingHero = () => {
             Stacey & Richie
           </h1>
           <div className="w-32 h-0.5 bg-accent mx-auto mb-8"></div>
-          <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide uppercase">
-            Our Wedding is Near
+          <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide uppercase mb-4">
+            Join us on our big day
+          </p>
+          <p className="text-2xl md:text-3xl text-primary font-semibold mb-2">
+            15th November 2025
+          </p>
+          <p className="text-lg md:text-xl text-muted-foreground font-light">
+            Gospel Outreach church Chaka
           </p>
         </div>
       </div>
