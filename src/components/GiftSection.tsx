@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { PaystackButton } from "react-paystack";
 import { Heart, DollarSign, Camera, Music, Cake, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -12,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const FundraisingSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -149,12 +151,13 @@ const FundraisingSection = () => {
       });
     }
     
-    // Reset form
+    // Reset form and close modal
     setAmount("");
     setEmail("");
     setName("");
     setMessage("");
     setSelectedCategory("");
+    setIsModalOpen(false);
   };
 
   const handlePaystackClose = () => {
@@ -223,7 +226,10 @@ const FundraisingSection = () => {
                 className={`cursor-pointer transition-all hover:shadow-lg ${
                   selectedCategory === category.id ? 'ring-2 ring-primary bg-primary/5' : ''
                 }`}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  setIsModalOpen(true);
+                }}
               >
                 <CardContent className="p-6 text-center">
                   <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
@@ -249,16 +255,16 @@ const FundraisingSection = () => {
           })}
         </div>
 
-        {/* Donation Form */}
-        {selectedCategory && (
-          <Card className="max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-2xl">
+        {/* Donation Modal */}
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-3 text-2xl">
                 <Heart className="w-6 h-6 text-primary" />
                 Contribute to {selectedCategoryData?.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6 pt-4">
               <div>
                 <Label htmlFor="name">Your Name</Label>
                 <Input
@@ -330,9 +336,9 @@ const FundraisingSection = () => {
                   </Button>
                 )}
               </div>
-            </CardContent>
-          </Card>
-        )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
