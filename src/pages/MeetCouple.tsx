@@ -8,7 +8,7 @@ const MeetCouple = () => {
     <div className="min-h-screen">
 
       {/* Navigation Buttons */}
-      <section className="py-8 px-4 bg-background">
+      <section className="py-4 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
           <div className="flex gap-4 justify-center">
             <Link to="/">
@@ -30,12 +30,12 @@ const MeetCouple = () => {
       <CoupleSection />
 
       {/* Call to Action */}
-      <section className="py-20 px-4 bg-primary/5">
+      <section className="py-8 px-4 bg-primary/5">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-serif text-primary mb-6">
+          <h2 className="text-2xl md:text-3xl font-serif text-primary mb-4">
             Ready to Support Our Journey?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-base text-muted-foreground mb-6">
             Your love and support mean everything to us as we begin this new chapter together.
           </p>
           <Link to="/support">
