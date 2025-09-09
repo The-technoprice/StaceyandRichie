@@ -3,7 +3,7 @@ import cors from 'cors';
 import { db } from './db';
 import { donations, supportOffers, guestInformation } from '../shared/schema';
 import { eq, and, desc } from 'drizzle-orm';
-import { writePledgeToSheets, writeDonationToSheets, writeGiftToSheets } from './google-sheets';
+// Google Sheets integration removed - using admin dashboard instead
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -87,37 +87,7 @@ app.post('/api/donations', async (req, res) => {
       })
       .returning();
 
-    // Also write to Google Sheets if donation is completed
-    if (donationData.status === 'completed') {
-      try {
-        // Check if this is a gift donation or regular donation based on category or other criteria
-        const isGift = donationData.message && donationData.message.toLowerCase().includes('gift');
-        
-        if (isGift) {
-          await writeGiftToSheets({
-            donorName: donationData.donor_name,
-            donorEmail: donationData.donor_email,
-            amount: donationData.amount,
-            currency: donationData.currency || 'KES',
-            category: donationData.category,
-            message: donationData.message,
-            paystackReference: donationData.paystack_reference,
-          });
-        } else {
-          await writeDonationToSheets({
-            donorName: donationData.donor_name,
-            donorEmail: donationData.donor_email,
-            amount: donationData.amount,
-            currency: donationData.currency || 'KES',
-            category: donationData.category,
-            message: donationData.message,
-            paystackReference: donationData.paystack_reference,
-          });
-        }
-      } catch (error) {
-        console.log('Failed to write to Google Sheets, but donation saved to database');
-      }
-    }
+    // Donation saved to database - view in admin dashboard
 
     res.json(newDonation[0]);
   } catch (error) {
@@ -189,20 +159,7 @@ app.post('/api/support-offers', async (req, res) => {
       })
       .returning();
 
-    // Also write to Google Sheets
-    try {
-      await writePledgeToSheets({
-        guestName: offerData.guest_name,
-        guestEmail: offerData.guest_email,
-        phone: offerData.phone,
-        supportType: offerData.support_type,
-        description: offerData.description,
-        availability: offerData.availability,
-        contactPreference: offerData.contact_preference || 'email',
-      });
-    } catch (error) {
-      console.log('Failed to write to Google Sheets, but support offer saved to database');
-    }
+    // Support offer saved to database - view in admin dashboard
 
     res.json(newOffer[0]);
   } catch (error) {

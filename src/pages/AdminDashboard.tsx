@@ -8,38 +8,38 @@ import { Download, DollarSign, Gift, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Donation {
-  id: number;
-  donor_name: string;
-  donor_email: string;
+  id: string;
+  donorName: string;
+  donorEmail: string;
   amount: number;
   category: string;
   message?: string;
-  paystack_reference?: string;
+  paystackReference?: string;
   status: string;
-  created_at: string;
+  createdAt: string;
 }
 
 interface Pledge {
-  id: number;
-  guest_name: string;
-  guest_email: string;
+  id: string;
+  guestName: string;
+  guestEmail: string;
   phone?: string;
-  support_type: string;
+  supportType: string;
   description: string;
   availability?: string;
-  contact_preference: string;
-  created_at: string;
+  contactPreference: string;
+  createdAt: string;
 }
 
 interface Gift {
-  id: number;
-  donor_name: string;
-  donor_email: string;
+  id: string;
+  donorName: string;
+  donorEmail: string;
   amount: number;
   category: string;
   message?: string;
-  paystack_reference?: string;
-  created_at: string;
+  paystackReference?: string;
+  createdAt: string;
 }
 
 const AdminDashboard = () => {
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
               onClick={() => exportToCSV(
                 donations, 
                 'donations',
-                ['Donor Name', 'Donor Email', 'Amount', 'Category', 'Message', 'Paystack Reference', 'Status', 'Created At']
+                ['donorName', 'donorEmail', 'amount', 'category', 'message', 'paystackReference', 'status', 'createdAt']
               )}
               variant="outline"
               size="sm"
@@ -242,8 +242,8 @@ const AdminDashboard = () => {
                   <TableRow key={donation.id}>
                     <TableCell>
                       <div>
-                        <div className="font-medium">{donation.donor_name}</div>
-                        <div className="text-sm text-muted-foreground">{donation.donor_email}</div>
+                        <div className="font-medium">{donation.donorName}</div>
+                        <div className="text-sm text-muted-foreground">{donation.donorEmail}</div>
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{formatCurrency(donation.amount)}</TableCell>
@@ -251,14 +251,14 @@ const AdminDashboard = () => {
                       <Badge variant="secondary">{donation.category}</Badge>
                     </TableCell>
                     <TableCell className="max-w-xs truncate">{donation.message || '-'}</TableCell>
-                    <TableCell className="font-mono text-sm">{donation.paystack_reference || '-'}</TableCell>
+                    <TableCell className="font-mono text-sm">{donation.paystackReference || '-'}</TableCell>
                     <TableCell>
                       <Badge variant={donation.status === 'completed' ? 'default' : 'secondary'}>
                         {donation.status}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-sm">
-                      {new Date(donation.created_at).toLocaleDateString()}
+                      {new Date(donation.createdAt).toLocaleDateString()}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -281,7 +281,7 @@ const AdminDashboard = () => {
               onClick={() => exportToCSV(
                 pledges, 
                 'pledges',
-                ['Guest Name', 'Guest Email', 'Phone', 'Support Type', 'Description', 'Availability', 'Contact Preference', 'Created At']
+                ['guestName', 'guestEmail', 'phone', 'supportType', 'description', 'availability', 'contactPreference', 'createdAt']
               )}
               variant="outline"
               size="sm"
@@ -308,23 +308,23 @@ const AdminDashboard = () => {
                   <TableRow key={pledge.id}>
                     <TableCell>
                       <div>
-                        <div className="font-medium">{pledge.guest_name}</div>
-                        <div className="text-sm text-muted-foreground">{pledge.guest_email}</div>
+                        <div className="font-medium">{pledge.guestName}</div>
+                        <div className="text-sm text-muted-foreground">{pledge.guestEmail}</div>
                         {pledge.phone && (
                           <div className="text-sm text-muted-foreground">{pledge.phone}</div>
                         )}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline">{pledge.support_type}</Badge>
+                      <Badge variant="outline">{pledge.supportType}</Badge>
                     </TableCell>
                     <TableCell className="max-w-xs">{pledge.description}</TableCell>
                     <TableCell className="text-sm">{pledge.availability || '-'}</TableCell>
                     <TableCell>
-                      <Badge variant="secondary">{pledge.contact_preference}</Badge>
+                      <Badge variant="secondary">{pledge.contactPreference}</Badge>
                     </TableCell>
                     <TableCell className="text-sm">
-                      {new Date(pledge.created_at).toLocaleDateString()}
+                      {new Date(pledge.createdAt).toLocaleDateString()}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
               onClick={() => exportToCSV(
                 gifts, 
                 'gifts',
-                ['Donor Name', 'Donor Email', 'Amount', 'Category', 'Message', 'Paystack Reference', 'Created At']
+                ['donorName', 'donorEmail', 'amount', 'category', 'message', 'paystackReference', 'createdAt']
               )}
               variant="outline"
               size="sm"
@@ -374,8 +374,8 @@ const AdminDashboard = () => {
                   <TableRow key={gift.id}>
                     <TableCell>
                       <div>
-                        <div className="font-medium">{gift.donor_name}</div>
-                        <div className="text-sm text-muted-foreground">{gift.donor_email}</div>
+                        <div className="font-medium">{gift.donorName}</div>
+                        <div className="text-sm text-muted-foreground">{gift.donorEmail}</div>
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{formatCurrency(gift.amount)}</TableCell>
@@ -383,9 +383,9 @@ const AdminDashboard = () => {
                       <Badge variant="secondary">{gift.category}</Badge>
                     </TableCell>
                     <TableCell className="max-w-xs truncate">{gift.message || '-'}</TableCell>
-                    <TableCell className="font-mono text-sm">{gift.paystack_reference || '-'}</TableCell>
+                    <TableCell className="font-mono text-sm">{gift.paystackReference || '-'}</TableCell>
                     <TableCell className="text-sm">
-                      {new Date(gift.created_at).toLocaleDateString()}
+                      {new Date(gift.createdAt).toLocaleDateString()}
                     </TableCell>
                   </TableRow>
                 ))}
