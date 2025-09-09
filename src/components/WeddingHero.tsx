@@ -19,9 +19,6 @@ const WeddingHero = () => {
       {/* Content */}
       <div className="text-center px-4 max-w-4xl mx-auto relative z-10 text-white">
         <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl font-serif mb-4 tracking-wide">
-            Our Wedding Day
-          </h1>
           <h2 className="text-6xl md:text-8xl font-serif mb-8 tracking-wider font-bold">
             Stacey & Richie
           </h2>
