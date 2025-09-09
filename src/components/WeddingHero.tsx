@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const heroImage = "/lovable-uploads/c53bb0b7-f8cf-4545-ae41-2dd2ce558762.png";
+const heroImage = "/lovable-uploads/2e843899-ae95-456a-80bb-1876dc215a93.png";
 
 const WeddingHero = () => {
   return (
