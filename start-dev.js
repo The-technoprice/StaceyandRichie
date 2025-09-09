@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+import { spawn } from 'child_process';
 
 // Start backend server
 const backend = spawn('npx', ['tsx', 'server/index.ts'], {
