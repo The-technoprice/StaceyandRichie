@@ -177,7 +177,7 @@ const FundraisingSection = () => {
       ],
     },
     publicKey,
-    text: `Donate KSh ${amount ? parseInt(amount).toLocaleString() : '0'}`,
+    text: `Give KSh ${amount ? parseInt(amount).toLocaleString() : '0'}`,
     onSuccess: handlePaystackSuccess,
     onClose: handlePaystackClose,
   };
