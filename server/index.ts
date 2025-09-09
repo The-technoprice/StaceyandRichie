@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { db } from './db';
 import { donations, supportOffers, guestInformation } from '../shared/schema';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, desc } from 'drizzle-orm';
 import { writePledgeToSheets, writeDonationToSheets, writeGiftToSheets } from './google-sheets';
 
 const app = express();
@@ -123,6 +123,51 @@ app.post('/api/donations', async (req, res) => {
   } catch (error) {
     console.error('Error creating donation:', error);
     res.status(500).json({ error: 'Failed to create donation' });
+  }
+});
+
+// Admin API endpoints
+app.get('/api/admin/donations', async (req, res) => {
+  try {
+    const allDonations = await db
+      .select()
+      .from(donations)
+      .orderBy(desc(donations.createdAt));
+    
+    res.json(allDonations);
+  } catch (error) {
+    console.error('Error fetching donations:', error);
+    res.status(500).json({ error: 'Failed to fetch donations' });
+  }
+});
+
+app.get('/api/admin/pledges', async (req, res) => {
+  try {
+    const allPledges = await db
+      .select()
+      .from(supportOffers)
+      .orderBy(desc(supportOffers.createdAt));
+    
+    res.json(allPledges);
+  } catch (error) {
+    console.error('Error fetching pledges:', error);
+    res.status(500).json({ error: 'Failed to fetch pledges' });
+  }
+});
+
+app.get('/api/admin/gifts', async (req, res) => {
+  try {
+    // Assuming gifts are donations with specific criteria (like message containing "gift")
+    const allGifts = await db
+      .select()
+      .from(donations)
+      .where(eq(donations.message, 'gift'))
+      .orderBy(desc(donations.createdAt));
+    
+    res.json(allGifts);
+  } catch (error) {
+    console.error('Error fetching gifts:', error);
+    res.status(500).json({ error: 'Failed to fetch gifts' });
   }
 });
 
