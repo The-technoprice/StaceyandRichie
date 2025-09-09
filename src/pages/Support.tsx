@@ -1,11 +1,33 @@
 import GiftSection from "@/components/GiftSection";
 import SupportOfferForm from "@/components/SupportOfferForm";
-import { Gift, HandHeart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Gift, HandHeart, Home, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Support = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/20">
-      
+
+      {/* Navigation Buttons */}
+      <section className="py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex gap-4 justify-center">
+            <Link to="/">
+              <Button variant="outline" className="flex items-center gap-2">
+                <Home className="w-4 h-4" />
+                Home
+              </Button>
+            </Link>
+            <Link to="/meet-couple">
+              <Button variant="outline" className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                About Us
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Gift Contribution Section */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
@@ -45,7 +67,7 @@ const Support = () => {
             Thank You for Your Love & Support
           </h2>
           <p className="text-lg text-muted-foreground">
-            Every gesture of love and support brings us closer to the wedding of our dreams. 
+            Every gesture of love and support brings us closer to the wedding of our dreams.
             We are grateful for each of you and the role you play in our journey together.
           </p>
         </div>

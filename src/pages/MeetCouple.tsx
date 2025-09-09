@@ -1,11 +1,32 @@
 import CoupleSection from "@/components/CoupleSection";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, Home, HandHeart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const MeetCouple = () => {
   return (
     <div className="min-h-screen">
+
+      {/* Navigation Buttons */}
+      <section className="py-8 px-4 bg-background">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex gap-4 justify-center">
+            <Link to="/">
+              <Button variant="outline" className="flex items-center gap-2">
+                <Home className="w-4 h-4" />
+                Home
+              </Button>
+            </Link>
+            <Link to="/support">
+              <Button variant="outline" className="flex items-center gap-2">
+                <HandHeart className="w-4 h-4" />
+                Support
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <CoupleSection />
 
       {/* Call to Action */}
