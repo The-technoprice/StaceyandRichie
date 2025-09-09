@@ -303,19 +303,45 @@ const FundraisingSection = () => {
                 />
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 space-y-3">
                 {amount && email && name ? (
-                  <PaystackButton
-                    {...componentProps}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-md font-semibold flex items-center justify-center gap-2 transition-colors"
-                  >
-                    <DollarSign className="w-5 h-5" />
-                    Donate KSh {parseInt(amount).toLocaleString()}
-                  </PaystackButton>
+                  <>
+                    <Button
+                      className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground py-3 px-6 rounded-md font-semibold flex items-center justify-center gap-2 transition-colors"
+                      onClick={() => {
+                        // Handle pledge logic here - could store pledge in database
+                        toast({
+                          title: "Pledge Recorded!",
+                          description: `Thank you for pledging KSh ${parseInt(amount).toLocaleString()}. We'll contact you with payment details.`,
+                        });
+                        setIsModalOpen(false);
+                        // Reset form
+                        setAmount("");
+                        setEmail("");
+                        setName("");
+                        setMessage("");
+                      }}
+                    >
+                      <Heart className="w-5 h-5" />
+                      Pledge Now - KSh {parseInt(amount).toLocaleString()}
+                    </Button>
+                    <PaystackButton
+                      {...componentProps}
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-6 rounded-md font-semibold flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <DollarSign className="w-5 h-5" />
+                      Give Now - KSh {parseInt(amount).toLocaleString()}
+                    </PaystackButton>
+                  </>
                 ) : (
-                  <Button disabled className="w-full" size="lg">
-                    Please fill all required fields
-                  </Button>
+                  <div className="space-y-3">
+                    <Button disabled className="w-full" size="lg">
+                      Please fill all required fields
+                    </Button>
+                    <Button disabled className="w-full" size="lg" variant="outline">
+                      Please fill all required fields
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
