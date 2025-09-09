@@ -126,8 +126,16 @@ const FundraisingSection = () => {
       });
       
       // Immediately refresh donation amounts to show updated progress
-      setTimeout(() => {
-        fetchDonationAmounts();
+      setTimeout(async () => {
+        try {
+          const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donations/amounts`);
+          if (response.ok) {
+            const amounts = await response.json();
+            setCurrentAmounts(amounts);
+          }
+        } catch (error) {
+          console.error('Error refreshing donation amounts:', error);
+        }
       }, 1000);
     } catch (error) {
       console.error('Error saving donation:', error);

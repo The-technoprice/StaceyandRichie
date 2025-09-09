@@ -22,7 +22,7 @@ export async function authenticateGoogleSheets() {
   return sheets;
 }
 
-// Function to write pledge data to Google Sheets
+// Function to write pledge data to Google Sheets (Pledges sheet)
 export async function writePledgeToSheets(pledgeData: {
   guestName: string;
   guestEmail: string;
@@ -35,7 +35,7 @@ export async function writePledgeToSheets(pledgeData: {
   try {
     const sheets = await authenticateGoogleSheets();
     
-    // Prepare the row data
+    // Prepare the row data for pledges
     const rowData = [
       new Date().toISOString(), // Timestamp
       pledgeData.guestName,
@@ -47,10 +47,10 @@ export async function writePledgeToSheets(pledgeData: {
       pledgeData.contactPreference,
     ];
 
-    // Append the data to the spreadsheet
+    // Append the data to the Pledges sheet
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Sheet1!A:H', // Adjust range as needed
+      range: 'Pledges!A:H', // Pledges sheet
       valueInputOption: 'RAW',
       requestBody: {
         values: [rowData],
@@ -59,12 +59,12 @@ export async function writePledgeToSheets(pledgeData: {
 
     return { success: true };
   } catch (error) {
-    console.error('Error writing to Google Sheets:', error);
+    console.error('Error writing pledge to Google Sheets:', error);
     return { success: false, error: error.message };
   }
 }
 
-// Function to write donation data to Google Sheets  
+// Function to write donation data to Google Sheets (Donations sheet for successful donations)
 export async function writeDonationToSheets(donationData: {
   donorName: string;
   donorEmail: string;
@@ -77,7 +77,7 @@ export async function writeDonationToSheets(donationData: {
   try {
     const sheets = await authenticateGoogleSheets();
     
-    // Prepare the row data
+    // Prepare the row data for successful donations
     const rowData = [
       new Date().toISOString(), // Timestamp
       donationData.donorName,
@@ -87,12 +87,13 @@ export async function writeDonationToSheets(donationData: {
       donationData.category,
       donationData.message || '',
       donationData.paystackReference || '',
+      'Completed' // Status
     ];
 
-    // Append the data to the spreadsheet (different sheet or range)
+    // Append the data to the Donations sheet for successful donations
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Donations!A:H', // Separate sheet for donations
+      range: 'Donations!A:I', // Donations sheet for successful payments
       valueInputOption: 'RAW',
       requestBody: {
         values: [rowData],
@@ -102,6 +103,49 @@ export async function writeDonationToSheets(donationData: {
     return { success: true };
   } catch (error) {
     console.error('Error writing donation to Google Sheets:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// Function to write gift data to Google Sheets (Gifts sheet)
+export async function writeGiftToSheets(giftData: {
+  donorName: string;
+  donorEmail: string;
+  amount: number;
+  currency: string;
+  category: string;
+  message?: string;
+  paystackReference?: string;
+}) {
+  try {
+    const sheets = await authenticateGoogleSheets();
+    
+    // Prepare the row data for gift donations
+    const rowData = [
+      new Date().toISOString(), // Timestamp
+      giftData.donorName,
+      giftData.donorEmail,
+      giftData.amount,
+      giftData.currency,
+      giftData.category,
+      giftData.message || '',
+      giftData.paystackReference || '',
+      'Gift' // Type
+    ];
+
+    // Append the data to the Gifts sheet
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: 'Gifts!A:I', // Gifts sheet for gift donations
+      valueInputOption: 'RAW',
+      requestBody: {
+        values: [rowData],
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error writing gift to Google Sheets:', error);
     return { success: false, error: error.message };
   }
 }

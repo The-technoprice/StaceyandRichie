@@ -3,7 +3,7 @@ import cors from 'cors';
 import { db } from './db';
 import { donations, supportOffers, guestInformation } from '../shared/schema';
 import { eq, and } from 'drizzle-orm';
-import { writePledgeToSheets, writeDonationToSheets } from './google-sheets';
+import { writePledgeToSheets, writeDonationToSheets, writeGiftToSheets } from './google-sheets';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,13 +19,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Add explicit OPTIONS handler for CORS preflight
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.sendStatus(200);
-});
+// CORS is handled by the cors middleware above
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -83,15 +77,30 @@ app.post('/api/donations', async (req, res) => {
     // Also write to Google Sheets if donation is completed
     if (donationData.status === 'completed') {
       try {
-        await writeDonationToSheets({
-          donorName: donationData.donor_name,
-          donorEmail: donationData.donor_email,
-          amount: donationData.amount,
-          currency: donationData.currency || 'KES',
-          category: donationData.category,
-          message: donationData.message,
-          paystackReference: donationData.paystack_reference,
-        });
+        // Check if this is a gift donation or regular donation based on category or other criteria
+        const isGift = donationData.message && donationData.message.toLowerCase().includes('gift');
+        
+        if (isGift) {
+          await writeGiftToSheets({
+            donorName: donationData.donor_name,
+            donorEmail: donationData.donor_email,
+            amount: donationData.amount,
+            currency: donationData.currency || 'KES',
+            category: donationData.category,
+            message: donationData.message,
+            paystackReference: donationData.paystack_reference,
+          });
+        } else {
+          await writeDonationToSheets({
+            donorName: donationData.donor_name,
+            donorEmail: donationData.donor_email,
+            amount: donationData.amount,
+            currency: donationData.currency || 'KES',
+            category: donationData.category,
+            message: donationData.message,
+            paystackReference: donationData.paystack_reference,
+          });
+        }
       } catch (error) {
         console.log('Failed to write to Google Sheets, but donation saved to database');
       }
