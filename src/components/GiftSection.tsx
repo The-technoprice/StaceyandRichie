@@ -9,7 +9,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { PaystackButton } from "react-paystack";
 import { Heart, DollarSign, Camera, Music, Cake, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
 const FundraisingSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -32,53 +31,28 @@ const FundraisingSection = () => {
     styling: 0
   });
 
-  // Fetch and subscribe to real-time donation data
+  // Fetch donation data from our API
   useEffect(() => {
     const fetchDonationAmounts = async () => {
-      const { data: donations } = await supabase
-        .from('donations')
-        .select('category, amount')
-        .eq('status', 'completed');
-
-      if (donations) {
-        const amounts = {
-          pastry: 0,
-          photo_video: 0,
-          entertainment: 0,
-          styling: 0
-        };
-
-        donations.forEach((donation) => {
-          amounts[donation.category as keyof typeof amounts] += donation.amount;
-        });
-
-        setCurrentAmounts(amounts);
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donations/amounts`);
+        if (response.ok) {
+          const amounts = await response.json();
+          setCurrentAmounts(amounts);
+        }
+      } catch (error) {
+        console.error('Error fetching donation amounts:', error);
       }
     };
 
     // Initial fetch
     fetchDonationAmounts();
 
-    // Subscribe to real-time changes
-    const channel = supabase
-      .channel('donation-updates')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'donations',
-          filter: 'status=eq.completed'
-        },
-        () => {
-          // Refetch when any donation is updated
-          fetchDonationAmounts();
-        }
-      )
-      .subscribe();
+    // Set up polling for updates (replacing real-time subscriptions)
+    const interval = setInterval(fetchDonationAmounts, 30000); // Poll every 30 seconds
 
     return () => {
-      supabase.removeChannel(channel);
+      clearInterval(interval);
     };
   }, []);
 
@@ -133,21 +107,29 @@ const FundraisingSection = () => {
       status: 'completed'
     };
 
-    const { error } = await supabase
-      .from('donations')
-      .insert([donationData]);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donations`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(donationData),
+      });
 
-    if (error) {
+      if (!response.ok) {
+        throw new Error('Failed to save donation');
+      }
+
+      toast({
+        title: "Donation Successful!",
+        description: `Thank you for contributing to our ${categories.find(c => c.id === selectedCategory)?.name}! We truly appreciate your support.`,
+      });
+    } catch (error) {
       console.error('Error saving donation:', error);
       toast({
         title: "Payment Successful, but...",
         description: "Your payment was successful but there was an issue recording it. Please contact support with your reference: " + reference.reference,
         variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Donation Successful!",
-        description: `Thank you for contributing to our ${categories.find(c => c.id === selectedCategory)?.name}! We truly appreciate your support.`,
       });
     }
     

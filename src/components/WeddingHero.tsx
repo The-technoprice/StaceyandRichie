@@ -2,14 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const heroImage = "/lovable-uploads/2e843899-ae95-456a-80bb-1876dc215a93.png";
+const heroImage = "/src/assets/hero-couple-new.jpg";
 
 const WeddingHero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-right md:bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroImage})` }}
       ></div>
       

@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Heart, Camera, Music, Car, Gift, Utensils, Palette, Users } from "lucide-react";
 
@@ -47,14 +46,18 @@ const SupportOffersSection = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
-        .from('support_offers')
-        .insert({
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/support-offers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           ...formData,
           support_type: selectedCategory
-        });
+        }),
+      });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to submit support offer');
 
       toast({
         title: "Thank you for your offer!",
