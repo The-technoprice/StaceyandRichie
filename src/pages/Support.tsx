@@ -1,7 +1,6 @@
-import GiftSection from "@/components/GiftSection";
 import SupportOfferForm from "@/components/SupportOfferForm";
 import { Button } from "@/components/ui/button";
-import { Gift, HandHeart, Home, Users } from "lucide-react";
+import { HandHeart, Home, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Support = () => {
@@ -25,22 +24,6 @@ const Support = () => {
               </Button>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Gift Contribution Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <Gift className="w-16 h-16 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">
-              Gift Contribution
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Help us start our journey together with a monetary gift
-            </p>
-          </div>
-          <GiftSection />
         </div>
       </section>
 
