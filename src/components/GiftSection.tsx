@@ -49,7 +49,7 @@ const FundraisingSection = () => {
     fetchDonationAmounts();
 
     // Set up polling for updates (replacing real-time subscriptions)
-    const interval = setInterval(fetchDonationAmounts, 30000); // Poll every 30 seconds
+    const interval = setInterval(fetchDonationAmounts, 10000); // Poll every 10 seconds for more responsive updates
 
     return () => {
       clearInterval(interval);
@@ -124,6 +124,11 @@ const FundraisingSection = () => {
         title: "Donation Successful!",
         description: `Thank you for contributing to our ${categories.find(c => c.id === selectedCategory)?.name}! We truly appreciate your support.`,
       });
+      
+      // Immediately refresh donation amounts to show updated progress
+      setTimeout(() => {
+        fetchDonationAmounts();
+      }, 1000);
     } catch (error) {
       console.error('Error saving donation:', error);
       toast({

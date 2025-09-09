@@ -3,6 +3,7 @@ import cors from 'cors';
 import { db } from './db';
 import { donations, supportOffers, guestInformation } from '../shared/schema';
 import { eq, and } from 'drizzle-orm';
+import { writePledgeToSheets, writeDonationToSheets } from './google-sheets';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,10 +12,20 @@ const PORT = process.env.PORT || 3001;
 const corsOptions = {
   origin: true,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Add explicit OPTIONS handler for CORS preflight
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.sendStatus(200);
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -69,6 +80,23 @@ app.post('/api/donations', async (req, res) => {
       })
       .returning();
 
+    // Also write to Google Sheets if donation is completed
+    if (donationData.status === 'completed') {
+      try {
+        await writeDonationToSheets({
+          donorName: donationData.donor_name,
+          donorEmail: donationData.donor_email,
+          amount: donationData.amount,
+          currency: donationData.currency || 'KES',
+          category: donationData.category,
+          message: donationData.message,
+          paystackReference: donationData.paystack_reference,
+        });
+      } catch (error) {
+        console.log('Failed to write to Google Sheets, but donation saved to database');
+      }
+    }
+
     res.json(newDonation[0]);
   } catch (error) {
     console.error('Error creating donation:', error);
@@ -93,6 +121,21 @@ app.post('/api/support-offers', async (req, res) => {
         phone: offerData.phone,
       })
       .returning();
+
+    // Also write to Google Sheets
+    try {
+      await writePledgeToSheets({
+        guestName: offerData.guest_name,
+        guestEmail: offerData.guest_email,
+        phone: offerData.phone,
+        supportType: offerData.support_type,
+        description: offerData.description,
+        availability: offerData.availability,
+        contactPreference: offerData.contact_preference || 'email',
+      });
+    } catch (error) {
+      console.log('Failed to write to Google Sheets, but support offer saved to database');
+    }
 
     res.json(newOffer[0]);
   } catch (error) {
