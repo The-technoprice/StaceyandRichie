@@ -1,27 +1,67 @@
-const heroImage = "/lovable-uploads/b9290f0e-731e-4ea9-90a7-7a30212cb439.png";
+import { Button } from "@/components/ui/button";
+import { Calendar, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const heroImage = "/lovable-uploads/c53bb0b7-f8cf-4545-ae41-2dd2ce558762.png";
 
 const WeddingHero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-primary/10 via-background to-accent/10 overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroImage})` }}
       ></div>
-      <div className="text-center px-4 max-w-4xl mx-auto relative z-10">
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40"></div>
+      
+      {/* Content */}
+      <div className="text-center px-4 max-w-4xl mx-auto relative z-10 text-white">
         <div className="mb-12">
-          <h1 className="text-7xl md:text-9xl font-serif text-primary mb-6 tracking-wider">
-            Stacey & Richie
+          <h1 className="text-4xl md:text-6xl font-serif mb-4 tracking-wide">
+            Our Wedding Day
           </h1>
-          <div className="w-32 h-0.5 bg-accent mx-auto mb-8"></div>
-          <p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide uppercase mb-4">
-            Join us on our big day
-          </p>
-          <p className="text-2xl md:text-3xl text-primary font-semibold mb-2">
-            15th November 2025
-          </p>
-          <p className="text-lg md:text-xl text-muted-foreground font-light">
-            Gospel Outreach church Chaka
-          </p>
+          <h2 className="text-6xl md:text-8xl font-serif mb-8 tracking-wider font-bold">
+            Stacey & Richie
+          </h2>
+          
+          {/* Date and Venue Box */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Date Info */}
+              <div className="flex items-center gap-3">
+                <Calendar className="w-8 h-8 text-accent" />
+                <div className="text-left">
+                  <p className="text-lg font-semibold">
+                    SATURDAY, 15TH<br />
+                    NOVEMBER 2025
+                  </p>
+                </div>
+              </div>
+              
+              {/* Location Info */}
+              <div className="flex items-center gap-3">
+                <MapPin className="w-8 h-8 text-accent" />
+                <div className="text-left">
+                  <p className="text-lg font-semibold">
+                    G.O.C. CHAKA<br />
+                    NYERI - KENYA
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-white/20 text-white border border-white/30 hover:bg-white/30">
+              <Link to="/meet-couple">About Us</Link>
+            </Button>
+            <Button asChild size="lg" className="bg-accent text-white hover:bg-accent/90">
+              <Link to="/support">Support</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
