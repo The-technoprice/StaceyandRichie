@@ -35,13 +35,32 @@ const FundraisingSection = () => {
   useEffect(() => {
     const fetchDonationAmounts = async () => {
       try {
+        console.log('Fetching donation amounts...');
         const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/donations/amounts`);
+        console.log('Response status:', response.status);
         if (response.ok) {
           const amounts = await response.json();
+          console.log('Fetched amounts:', amounts);
           setCurrentAmounts(amounts);
+        } else {
+          console.error('Failed to fetch amounts, status:', response.status);
+          // Set fallback amounts to show at least the structure
+          setCurrentAmounts({
+            pastry: 0,
+            photo_video: 0,
+            entertainment: 0,
+            styling: 0
+          });
         }
       } catch (error) {
         console.error('Error fetching donation amounts:', error);
+        // Set fallback amounts to show at least the structure
+        setCurrentAmounts({
+          pastry: 0,
+          photo_video: 0,
+          entertainment: 0,
+          styling: 0
+        });
       }
     };
 
