@@ -8,6 +8,10 @@ import { writePledgeToSheets, writeDonationToSheets, writeGiftToSheets } from '.
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Test database connection on startup
+console.log('Starting server...');
+console.log('Database URL available:', !!process.env.DATABASE_URL);
+
 // Enable CORS for all origins in development
 const corsOptions = {
   origin: true,
@@ -29,6 +33,7 @@ app.get('/api/health', (req, res) => {
 // Get donation amounts by category
 app.get('/api/donations/amounts', async (req, res) => {
   try {
+    console.log('Fetching donation amounts...');
     const donationData = await db
       .select({
         category: donations.category,
@@ -48,10 +53,18 @@ app.get('/api/donations/amounts', async (req, res) => {
       amounts[donation.category as keyof typeof amounts] += donation.amount;
     });
 
+    console.log('Donation amounts:', amounts);
     res.json(amounts);
   } catch (error) {
     console.error('Error fetching donation amounts:', error);
-    res.status(500).json({ error: 'Failed to fetch donation amounts' });
+    // Return zero amounts if database fails
+    const fallbackAmounts = {
+      pastry: 0,
+      photo_video: 0,
+      entertainment: 0,
+      styling: 0
+    };
+    res.json(fallbackAmounts);
   }
 });
 

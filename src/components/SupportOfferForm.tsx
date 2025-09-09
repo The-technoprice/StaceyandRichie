@@ -81,8 +81,8 @@ const SupportOfferForm = () => {
     } catch (error) {
       console.error('Error submitting support offer:', error);
       toast({
-        title: "Something went wrong",
-        description: "Please try again or contact us directly.",
+        title: "Connection Error",
+        description: "Unable to submit your offer right now. Please check your connection and try again.",
         variant: "destructive",
       });
     } finally {

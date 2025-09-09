@@ -44,23 +44,11 @@ const FundraisingSection = () => {
           setCurrentAmounts(amounts);
         } else {
           console.error('Failed to fetch amounts, status:', response.status);
-          // Set fallback amounts to show at least the structure
-          setCurrentAmounts({
-            pastry: 0,
-            photo_video: 0,
-            entertainment: 0,
-            styling: 0
-          });
+          // Keep existing amounts instead of resetting to zero
         }
       } catch (error) {
         console.error('Error fetching donation amounts:', error);
-        // Set fallback amounts to show at least the structure
-        setCurrentAmounts({
-          pastry: 0,
-          photo_video: 0,
-          entertainment: 0,
-          styling: 0
-        });
+        // Keep existing amounts instead of resetting to zero
       }
     };
 
